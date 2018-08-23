@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.bit.nullnull.book.dao.bookReadDao">
+
+<!-- 	<select id="selectByIsbn" resultType="com.bit.nullnull.book.model.ReadBook">
+		SELECT * FROM read_book WHERE ISBN = #{isbn}
+	</select> -->
+
+	<select id="selectStoreList" resultType="com.bit.nullnull.book.model.ReadBook">
+		SELECT * FROM read_book
+	</select>
+
+	<insert id="storeBooks"
+			parameterType="com.bit.nullnull.book.model.ReadBook"
+			useGeneratedKeys="true" keyProperty="ISBN">
+		insert into read_book (isbn, member_num, state_num, imag)
+		values(#{isbn}, #{member_num}, #{state_num}, #{imag}) 		
+			
+	</insert>
+
+	<select id="selectStoreBookListPast" resultType="com.bit.nullnull.book.model.ReadBook">
+		SELECT * FROM read_book WHERE state_num = 0 and member_num = #{member_num};
+	</select>
+	
+		<select id="selectStoreBookListCurrent" resultType="com.bit.nullnull.book.model.ReadBook">
+		SELECT * FROM read_book WHERE state_num = 1 and member_num = #{member_num};
+	</select>
+	
+		<select id="selectStoreBookListFuture" resultType="com.bit.nullnull.book.model.ReadBook">
+		SELECT * FROM read_book WHERE state_num = 2 and member_num = #{member_num};
+	</select>
+
+</mapper>
